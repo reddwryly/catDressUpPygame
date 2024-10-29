@@ -36,6 +36,18 @@ characterGreen = pygame.image.load(r'asset/character/0.png')
 characterPurple = pygame.image.load(r'asset/character/1.png')
 characterRed = pygame.image.load(r'asset/character/2.png')
 
+blackCat = pygame.image.load(r'asset/character/black.png')
+brownCat = pygame.image.load(r'asset/character/brown.png')
+calicoCat = pygame.image.load(r'asset/character/calico.png')
+orangeCat = pygame.image.load(r'asset/character/orange.png')
+whiteCat = pygame.image.load(r'asset/character/white.png')
+
+blackCatSelect = pygame.image.load(r'asset/furColorSelect/black.png')
+brownCatSelect = pygame.image.load(r'asset/furColorSelect/brown.png')
+calicoCatSelect = pygame.image.load(r'asset/furColorSelect/calico.png')
+orangeCatSelect = pygame.image.load(r'asset/furColorSelect/orange.png')
+whiteCatSelect = pygame.image.load(r'asset/furColorSelect/white.png')
+
 class Button:
     def __init__(self, x, y, image):
         self.image = image
@@ -78,6 +90,12 @@ furColorPickerGreenB = Button(450,200, furColorPickerGreen)
 furColorPickerPurpleB = Button(550,200, furColorPickerPurple)
 furColorPickerRedB = Button(650,200, furColorPickerRed)
 
+blackCatSelectB = Button(400,200, blackCatSelect)
+brownCatSelectB = Button(510,200, brownCatSelect)
+calicoCatSelectB = Button(620,200, calicoCatSelect)
+orangeCatSelectB = Button(455,310, orangeCatSelect)
+whiteCatSelectB = Button(565,310, whiteCatSelect)
+
 class Start:
     def __init__(self, display, gameStateManager):
         self.display = display
@@ -104,12 +122,16 @@ class Color:
             self.gameStateManager.set_state('Accessories')
         if ShoesTabUnselectedB.draw():
             self.gameStateManager.set_state('Shoes')   
-        if furColorPickerGreenB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/0.png')
-        if furColorPickerPurpleB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/1.png')
-        if furColorPickerRedB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/2.png')
+        if blackCatSelectB.draw():
+            self.characterDraw = pygame.image.load(r'asset/character/black.png')
+        if brownCatSelectB.draw():
+            self.characterDraw = pygame.image.load(r'asset/character/brown.png')
+        if calicoCatSelectB.draw():
+            self.characterDraw = pygame.image.load(r'asset/character/calico.png')
+        if orangeCatSelectB.draw():
+            self.characterDraw = pygame.image.load(r'asset/character/orange.png')
+        if whiteCatSelectB.draw():
+            self.characterDraw = pygame.image.load(r'asset/character/white.png')
         drawCharacter.draw(self)
 
 class Shirt:
@@ -128,7 +150,6 @@ class Shirt:
             self.gameStateManager.set_state('Accessories')
         if ShoesTabUnselectedB.draw():
             self.gameStateManager.set_state('Shoes')
-        drawCharacter.draw(self)
 
 class Pants:
     def __init__(self, display, gameStateManager):
