@@ -13,7 +13,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 FPS = 60
 
 #load images
-start = pygame.image.load(r'asset\hats\0.png')
+start = pygame.transform.scale_by(pygame.image.load(r'asset\button\start.png'), 2)
 
 ColorTabSelected = pygame.image.load(r'asset\tabs\selectedColor.png')
 ColorTabUnselected = pygame.image.load(r'asset\tabs\unselectedColor.png')
@@ -28,9 +28,9 @@ AccessoriesTabUnselected = pygame.image.load(r'asset\tabs\unselectedAccessories.
 ShoesTabSelected = pygame.image.load(r'asset\tabs\selectedShoes.png')
 ShoesTabUnselected = pygame.image.load(r'asset\tabs\unselectedShoes.png')
 
-furColorPickerGreen = pygame.image.load(r'asset\hats\0.png')
-furColorPickerPurple = pygame.image.load(r'asset\hats\1.png')
-furColorPickerRed = pygame.image.load(r'asset\hats\2.png')
+shirtPickerGreen = pygame.image.load(r'asset\hats\0.png')
+shirtPickerPurple = pygame.image.load(r'asset\hats\1.png')
+shirtPickerRed = pygame.image.load(r'asset\hats\2.png')
 
 characterGreen = pygame.image.load(r'asset/character/0.png')
 characterPurple = pygame.image.load(r'asset/character/1.png')
@@ -72,7 +72,7 @@ class Button:
         return action
 
 #creating buttons     
-startButton = Button(400, 200, start)
+startButton = Button(350, 170, start)
 ColorTabSelectedB = Button(0,0, ColorTabSelected)
 ColorTabUnselectedB = Button(0,0, ColorTabUnselected)
 ShirtTabSelectedB = Button(150,0, ShirtTabSelected)
@@ -86,9 +86,9 @@ AccessoriesTabUnselectedB = Button(600,0, AccessoriesTabUnselected)
 ShoesTabSelectedB = Button(750,0, ShoesTabSelected)
 ShoesTabUnselectedB = Button(750,0, ShoesTabUnselected)
 
-furColorPickerGreenB = Button(450,200, furColorPickerGreen)
-furColorPickerPurpleB = Button(550,200, furColorPickerPurple)
-furColorPickerRedB = Button(650,200, furColorPickerRed)
+shirtPickerGreenB = Button(450,200, shirtPickerGreen)
+shirtPickerPurpleB = Button(550,200, shirtPickerPurple)
+shirtPickerRedB = Button(650,200, shirtPickerRed)
 
 blackCatSelectB = Button(400,200, blackCatSelect)
 brownCatSelectB = Button(510,200, brownCatSelect)
@@ -105,11 +105,25 @@ class Start:
         if startButton.draw():
             self.gameStateManager.set_state('Color')
 
-class Color:
-    def __init__(self, display, gameStateManager):
+class drawCharacter:
+    def __init__(self, display, characterDraw):
         self.display = display
-        self.gameStateManager = gameStateManager
+        self.characterDraw = characterDraw
+    def draw(self):
+        self.display.blit((pygame.transform.scale_by(self.gameStateManager.getCharacterDraw(), 2)), (40, 150)) 
 
+class drawShirt:
+    def __init__(self, display, shirtDraw):
+        self.display = display
+        self.shirtDraw = shirtDraw
+    def draw(self):
+        self.display.blit(self.gameStateManager.getShirtDraw(), (90, 120)) 
+
+class Color(drawCharacter):
+    def __init__(self, display, gameStateManager, characterDraw):
+        super().__init__(display, characterDraw)
+        self.gameStateManager = gameStateManager
+        characterDraw = gameStateManager.getCharacterDraw()
     def run(self):
         ColorTabSelectedB.draw()
         if ShirtTabUnselectedB.draw():
@@ -123,21 +137,21 @@ class Color:
         if ShoesTabUnselectedB.draw():
             self.gameStateManager.set_state('Shoes')   
         if blackCatSelectB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/black.png')
+            self.gameStateManager.setCharacterDraw(pygame.image.load(r'asset/character/black.png'))
         if brownCatSelectB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/brown.png')
+            self.gameStateManager.setCharacterDraw(pygame.image.load(r'asset/character/brown.png'))
         if calicoCatSelectB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/calico.png')
+            self.gameStateManager.setCharacterDraw(pygame.image.load(r'asset/character/calico.png'))
         if orangeCatSelectB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/orange.png')
+            self.gameStateManager.setCharacterDraw(pygame.image.load(r'asset/character/orange.png'))
         if whiteCatSelectB.draw():
-            self.characterDraw = pygame.image.load(r'asset/character/white.png')
+            self.gameStateManager.setCharacterDraw(pygame.image.load(r'asset/character/white.png'))
         drawCharacter.draw(self)
 
-class Shirt:
-    def __init__(self, display, gameStateManager):
-        self.display = display
-        self.gameStateManager = gameStateManager
+class Shirt(Color, drawShirt):
+    def __init__(self, display, gameStateManager, shirtDraw):
+        super().__init__(display, gameStateManager, shirtDraw)
+        shirtDraw = gameStateManager.getCharacterDraw()
     def run(self): 
         ShirtTabSelectedB.draw()
         if ColorTabUnselectedB.draw():
@@ -150,11 +164,19 @@ class Shirt:
             self.gameStateManager.set_state('Accessories')
         if ShoesTabUnselectedB.draw():
             self.gameStateManager.set_state('Shoes')
+        if shirtPickerGreenB.draw():
+            self.gameStateManager.setShirtDraw(pygame.image.load(r'asset/hats/0.png'))
+        if shirtPickerPurpleB.draw():
+            self.gameStateManager.setShirtDraw(pygame.image.load(r'asset/hats/1.png'))
+        if shirtPickerRedB.draw():
+            self.gameStateManager.setShirtDraw(pygame.image.load(r'asset/hats/2.png'))
+        drawCharacter.draw(self)
+        drawShirt.draw(self)
 
-class Pants:
-    def __init__(self, display, gameStateManager):
-        self.display = display
-        self.gameStateManager = gameStateManager
+class Pants(Shirt):
+    def __init__(self, display, gameStateManager, shirtDraw):
+        super().__init__(display, gameStateManager, shirtDraw)
+        shirtDraw = gameStateManager.getShirtDraw()
     def run(self):
         PantsTabSelectedB.draw()
         if ColorTabUnselectedB.draw():
@@ -167,6 +189,8 @@ class Pants:
             self.gameStateManager.set_state('Accessories')
         if ShoesTabUnselectedB.draw():
             self.gameStateManager.set_state('Shoes')
+        drawCharacter.draw(self)
+        drawShirt.draw(self)
 
 class Sweater:
     def __init__(self, display, gameStateManager):
@@ -222,30 +246,37 @@ class Shoes:
 class GameStateManager:
     def __init__(self, currentState):
         self.currentState = currentState
+        self.characterDraw = pygame.image.load(r'asset/character/black.png')
+        self.shirtDraw = pygame.image.load(r'asset/hats/0.png')
+
     def get_state(self):
         return self.currentState
     def set_state(self, state):
         self.currentState = state
-
-class drawCharacter(Color, Shirt):
-    def __init__(self, display, characterDraw):
-        super().__init__(display)
-        self.characterDraw = characterDraw
-    def draw(self):
-        self.display.blit((pygame.transform.scale_by(self.characterDraw, 2)), (40, 150)) 
+    def getCharacterDraw(self):
+        return self.characterDraw
+    def setCharacterDraw(self, character): 
+        self.characterDraw = character
+    def getShirtDraw(self):
+        return self.shirtDraw
+    def setShirtDraw(self, character): 
+        self.shirtDraw = character
 
 class Game:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
-        pygame.display.set_caption("Dress Up Cat")
+        pygame.display.set_caption("Cat Dress Up")
 
+        self.characterDraw = blackCat
+        self.shirtDraw = shirtPickerGreen
         self.gameStateManager = GameStateManager('start')
+
         self.start = Start(self.screen, self.gameStateManager)
-        self.Color = Color(self.screen, self.gameStateManager)
-        self.Shirt = Shirt(self.screen, self.gameStateManager)
-        self.Pants = Pants(self.screen, self.gameStateManager)
+        self.Color = Color(self.screen, self.gameStateManager, self.characterDraw)
+        self.Shirt = Shirt(self.screen, self.gameStateManager, self.shirtDraw)
+        self.Pants = Pants(self.screen, self.gameStateManager, self.shirtDraw)
         self.Sweater = Sweater(self.screen, self.gameStateManager)
         self.Accessories = Accessories(self.screen, self.gameStateManager)
         self.Shoes = Shoes(self.screen, self.gameStateManager)
