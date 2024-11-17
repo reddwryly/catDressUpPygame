@@ -184,9 +184,9 @@ class Universal:
         self.shirts = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png',  r'asset\Shirts\longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
         self.pants = [r'asset\empty.png', r'asset\Pants\Jeans/'+str(self.color)+'.png', r'asset\Pants\jeanShorts/'+str(self.color)+'.png', r'asset\Pants\BasketballShorts/'+str(self.color)+'.png', r'asset\Pants\cargoPants/'+str(self.color)+'.png', r'asset\Pants\loosePants/'+str(self.color)+'.png', r'asset\Pants\shortSkirt/'+str(self.color)+'.png', r'asset\Pants\LongSkirt/'+str(self.color)+'.png']
         self.sweater = [r'asset\empty.png', r'asset\Sweater\Blue/'+str(self.color)+'.png', r'asset\Sweater\Cardigan/'+str(self.color)+'.png', r'asset\Sweater\Jacket/'+str(self.color)+'.png', r'asset\Sweater\Sweater/'+str(self.color)+'.png', r'asset\Sweater\Purple/'+str(self.color)+'.png', r'asset\Sweater\SweaterVest/'+str(self.color)+'.png', r'asset\Sweater\crewneck/'+str(self.color)+'.png']
-        self.accessories = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoes1 = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoes2 = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
+        self.accessories = [r'asset\empty.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
+        self.shoes2 = [r'asset\empty.png', r'asset\shoe\shoe\converse/'+str(self.color)+'.png', r'asset\shoe\shoe\loaf/'+str(self.color)+'.png', r'asset\shoe\shoe\mj/'+str(self.color)+'.png', r'asset\shoe\shoe\sneek/'+str(self.color)+'.png']
+        self.shoes1 = [r'asset\empty.png', r'asset\shoe\sock\shortSock/'+str(self.color)+'.png', r'asset\shoe\sock\tallSock/'+str(self.color)+'.png', r'asset\shoe\sock\tights/'+str(self.color)+'.png', r'asset\shoe\sock\legging/'+str(self.color)+'.png']
     def restart(self):
         if shirtPickerRedB.draw():
             self.gameStateManager.setState('start')
@@ -233,12 +233,12 @@ class Universal:
             self.gameStateManager.setShoes2Draw(pygame.image.load(self.shoesPaths7[self.random7]))
     def draw(self):
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getCharacterDraw(), 2)), (40, 150)) 
+        self.display.blit((pygame.transform.scale_by(self.gameStateManager.getShoes1Draw(), 2)), (40, 150)) 
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getPantsDraw(), 2)), (40, 150)) 
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getShirtDraw(), 2)), (40, 150)) 
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getSweaterDraw(), 2)), (40, 150)) 
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getAccessories1Draw(), 2)), (40, 150)) 
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getAccessories2Draw(), 2)), (40, 150)) 
-        self.display.blit((pygame.transform.scale_by(self.gameStateManager.getShoes1Draw(), 2)), (40, 150)) 
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getShoes2Draw(), 2)), (40, 150))
 
 class Color(Universal):
@@ -579,8 +579,8 @@ class Accessories(Sweater):
         self.accBIndex2 = 1
         self.accBIndex3 = accBIndex3
         self.accBIndex3 = 2
-        self.accessories = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.accessoriesSelect = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
+        self.accessories = [r'asset\empty.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
+        self.accessoriesSelect = [r'asset\button\no.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
     def navBar(self):
         AccessoriesTabSelectedB.draw()
         if ColorTabUnselectedB.draw():
@@ -594,8 +594,8 @@ class Accessories(Sweater):
         if ShoesTabUnselectedB.draw():
             self.gameStateManager.setState('Shoes')
     def arrowButtons(self):
-        self.accessories = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.accessoriesSelect = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
+        self.accessories = [r'asset\empty.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
+        self.accessoriesSelect = [r'asset\button\no.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
         if rightTopArrowB.draw():
             if self.accTIndex1 < len(self.accessories) - 1:
                 self.accTIndex1 += 1
@@ -707,10 +707,10 @@ class Shoes(Accessories):
         self.shoesBIndex2 = 1
         self.shoesBIndex3 = shoesBIndex3
         self.shoesBIndex3 = 2
-        self.shoes1 = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoes2 = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoeSelect1 = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoeSelect2 = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
+        self.shoes2 = [r'asset\empty.png', r'asset\shoe\shoe\converse/'+str(self.color)+'.png', r'asset\shoe\shoe\loaf/'+str(self.color)+'.png', r'asset\shoe\shoe\mj/'+str(self.color)+'.png', r'asset\shoe\shoe\sneek/'+str(self.color)+'.png']
+        self.shoes1 = [r'asset\empty.png', r'asset\shoe\sock\shortSock/'+str(self.color)+'.png', r'asset\shoe\sock\tallSock/'+str(self.color)+'.png', r'asset\shoe\sock\tights/'+str(self.color)+'.png', r'asset\shoe\sock\legging/'+str(self.color)+'.png']
+        self.shoeSelect2 = [r'asset\button\no.png', r'asset\shoe\shoe\converse/'+str(self.color)+'.png', r'asset\shoe\shoe\loaf/'+str(self.color)+'.png', r'asset\shoe\shoe\mj/'+str(self.color)+'.png', r'asset\shoe\shoe\sneek/'+str(self.color)+'.png']
+        self.shoeSelect1 = [r'asset\button\no.png', r'asset\shoe\sock\shortSock/'+str(self.color)+'.png', r'asset\shoe\sock\tallSock/'+str(self.color)+'.png', r'asset\shoe\sock\tights/'+str(self.color)+'.png', r'asset\shoe\sock\legging/'+str(self.color)+'.png']
     def navBar(self):
         ShoesTabSelectedB.draw()
         if ColorTabUnselectedB.draw():
@@ -724,10 +724,10 @@ class Shoes(Accessories):
         if AccessoriesTabUnselectedB.draw():
             self.gameStateManager.setState('Accessories')
     def arrowButtons(self):
-        self.shoes1 = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoes2 = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoeSelect1 = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shoeSelect2 = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
+        self.shoes2 = [r'asset\empty.png', r'asset\shoe\shoe\converse/'+str(self.color)+'.png', r'asset\shoe\shoe\loaf/'+str(self.color)+'.png', r'asset\shoe\shoe\mj/'+str(self.color)+'.png', r'asset\shoe\shoe\sneek/'+str(self.color)+'.png']
+        self.shoes1 = [r'asset\empty.png', r'asset\shoe\sock\shortSock/'+str(self.color)+'.png', r'asset\shoe\sock\tallSock/'+str(self.color)+'.png', r'asset\shoe\sock\tights/'+str(self.color)+'.png', r'asset\shoe\sock\legging/'+str(self.color)+'.png']
+        self.shoeSelect2 = [r'asset\button\no.png', r'asset\shoe\shoe\converse/'+str(self.color)+'.png', r'asset\shoe\shoe\loaf/'+str(self.color)+'.png', r'asset\shoe\shoe\mj/'+str(self.color)+'.png', r'asset\shoe\shoe\sneek/'+str(self.color)+'.png']
+        self.shoeSelect1 = [r'asset\button\no.png', r'asset\shoe\sock\shortSock/'+str(self.color)+'.png', r'asset\shoe\sock\tallSock/'+str(self.color)+'.png', r'asset\shoe\sock\tights/'+str(self.color)+'.png', r'asset\shoe\sock\legging/'+str(self.color)+'.png']
         if rightTopArrowB.draw():
             if self.shoesTIndex1 < len(self.shoes1) - 1:
                 self.shoesTIndex1 += 1
