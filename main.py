@@ -1,16 +1,21 @@
-import pygame #requires pip install *
+try:
+    import pygame #requires pip install *
+except:
+    print('please pip install pygame with the terminal command: python3 -m pip install -U pygame --user')
+    print('if issues occur, please visit https://www.pygame.org/wiki/GettingStarted')
+
 '''
 copy paste in terminal to install: python3 -m pip install -U pygame --user
 copy paste in terminal to check if working: python3 -m pygame.examples.aliens
 if problems occur visit: https://www.pygame.org/wiki/GettingStarted
 '''
-import sys 
+
 import random
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-FPS = 60
+FPS = 15
 
 #load images
 start = pygame.transform.scale_by(pygame.image.load(r'asset\button\start.png'), 2)
@@ -30,6 +35,8 @@ AccessoriesTabSelected = pygame.image.load(r'asset\tabs\selectedAccessories.png'
 AccessoriesTabUnselected = pygame.image.load(r'asset\tabs\unselectedAccessories.png')
 ShoesTabSelected = pygame.image.load(r'asset\tabs\selectedShoes.png')
 ShoesTabUnselected = pygame.image.load(r'asset\tabs\unselectedShoes.png')
+
+Paws = pygame.image.load(r'asset\Paws.png')
 
 leftArrow = pygame.image.load(r'asset\button\left.png')
 rightArrow = pygame.image.load(r'asset\button\right.png')
@@ -56,12 +63,6 @@ brownCatSelect = pygame.image.load(r'asset/furColorSelect/brown.png')
 calicoCatSelect = pygame.image.load(r'asset/furColorSelect/calico.png')
 orangeCatSelect = pygame.image.load(r'asset/furColorSelect/orange.png')
 whiteCatSelect = pygame.image.load(r'asset/furColorSelect/white.png')
-
-#temp
-shirtPickerGreen = pygame.image.load(r'asset\hats\0.png')
-shirtPickerPurple = pygame.image.load(r'asset\hats\1.png')
-shirtPickerRed = pygame.image.load(r'asset\hats\2.png')
-shirtNone = pygame.image.load(r'asset\button\no.png')
 
 Shuffle = pygame.transform.scale_by(pygame.image.load(r'asset\button\shuffle.png'), .5)
 
@@ -106,23 +107,23 @@ AccessoriesTabUnselectedB = Button(600,0, AccessoriesTabUnselected)
 ShoesTabSelectedB = Button(750,0, ShoesTabSelected)
 ShoesTabUnselectedB = Button(750,0, ShoesTabUnselected)
 
-leftArrowB =  Button(300,230, leftArrow)
-rightArrowB = Button(700,230, rightArrow)
+leftArrowB =  Button(360,230, leftArrow)
+rightArrowB = Button(698,230, rightArrow)
 leftTopArrowB = Button(310,170, leftArrow)
 leftBotArrowB = Button(310,290, leftArrow)
 rightTopArrowB = Button(790,170, rightArrow)
 rightBotArrowB = Button(790,290, rightArrow)
 
-redSelectB = Button(415,485, redSelect)
-orangeSelectB = Button(445,485, orangeSelect)
-yellowSelectB = Button(475,485, yellowSelect)
-greenSelectB = Button(505,485, greenSelect)
-blueSelectB = Button(535,485, blueSelect)
-purpleSelectB = Button(565,485, purpleSelect)
-pinkSelectB = Button(595,485, pinkSelect)
-brownSelectB= Button(625,485, brownSelect)
-blackSelectB = Button(655,485, blackSelect)
-graySelectB = Button(685,485, graySelect)
+redSelectB = Button(435,435, redSelect)
+orangeSelectB = Button(465,435, orangeSelect)
+yellowSelectB = Button(495,435, yellowSelect)
+greenSelectB = Button(525,435, greenSelect)
+blueSelectB = Button(555,435, blueSelect)
+purpleSelectB = Button(585,435, purpleSelect)
+pinkSelectB = Button(615,435, pinkSelect)
+brownSelectB= Button(645,435, brownSelect)
+blackSelectB = Button(675,435, blackSelect)
+graySelectB = Button(705,435, graySelect)
 
 blackCatSelectB = Button(400,200, blackCatSelect)
 brownCatSelectB = Button(510,200, brownCatSelect)
@@ -130,17 +131,15 @@ calicoCatSelectB = Button(620,200, calicoCatSelect)
 orangeCatSelectB = Button(455,310, orangeCatSelect)
 whiteCatSelectB = Button(565,310, whiteCatSelect)
 
-ShuffleB = Button(330,470, Shuffle)
-
-shirtPickerRedB = Button(100,520, shirtPickerRed)
-shirtPickerPurpleB = Button(200,520, shirtPickerPurple)
+ShuffleB = Button(325,420, Shuffle) 
 
 class Start:
     def __init__(self, display, gameStateManager):
         self.display = display
         self.gameStateManager = gameStateManager
+        self.currentFrame = 0
         self.Tfont1 = pygame.font.SysFont('Times New Roman', 100, bold = False, italic = False)
-        self.Tfont2 = pygame.font.SysFont('Times New Roman', 120, bold = True, italic = False)
+        self.Tfont2 = pygame.font.SysFont('MS UI Gothic', 120, bold = True, italic = False)
         with open('Welcome.txt', 'r') as f1:
             self.wContent = f1.read()
         with open('Title.txt', 'r') as f2:
@@ -148,13 +147,24 @@ class Start:
     def text(self):
         self.Welcome = self.Tfont1.render(self.wContent, True, '#FF6771')
         self.Title = self.Tfont2.render(self.tContent, True, '#FF6771')
-        self.display.blit(self.Title, (130, 90))
+        self.display.blit(self.Title, (120, 90))
         #self.display.blit(self.Welcome, (260, 50)) did'nt like it
+    def animation(self, endFrame):
+        if self.currentFrame <= endFrame:
+            frame = pygame.image.load(r'asset\animation/' + str(self.currentFrame) + '.png')
+            self.display.blit(frame, (800, 520))
+            self.currentFrame += 1
+        else:
+            self.currentFrame = 0 
+        self.display.blit(pygame.image.load(r'asset\littleKitty.png'), (800, 520))
     def run(self):
         screen.fill('#ffa7ad') 
+        self.display.blit((pygame.transform.rotate(Paws, -15)),(0, 205))
         Start.text(self)
         if startButton.draw():
             self.gameStateManager.setState('Color')
+        Start.animation(self, 17)
+        
 
 class drawColorSelect:
     def __init__(self, display, color, x):
@@ -164,40 +174,41 @@ class drawColorSelect:
     def colorSelect(self):
         if redSelectB.draw():
             self.color = 0
-            self.x = 412
+            self.x = 432
         if orangeSelectB.draw():
             self.color = 1
-            self.x = 442
+            self.x = 462
         if yellowSelectB.draw():
             self.color = 2
-            self.x = 472
+            self.x = 492
         if greenSelectB.draw():
             self.color = 3
-            self.x = 502
+            self.x = 522
         if blueSelectB.draw():
             self.color = 4
-            self.x = 532
+            self.x = 552
         if purpleSelectB.draw():
             self.color = 5
-            self.x = 562
+            self.x = 582
         if pinkSelectB.draw():
             self.color = 6
-            self.x = 592
+            self.x = 612
         if brownSelectB.draw():
             self.color = 7
-            self.x = 622
+            self.x = 642
         if blackSelectB.draw():
             self.color = 8
-            self.x = 652
+            self.x = 672
         if graySelectB.draw():
             self.color = 9   
-            self.x = 682
-        self.display.blit(colorSelected, (self.x,482))
+            self.x = 702
+        self.display.blit(colorSelected, (self.x,432))
 
 class Universal:
     def __init__(self, gameStateManager, color, shirts, pants, sweater, accessories, shoes1, shoes2):
         self.gameStateManager = gameStateManager
         self.color = 9
+        self.x = 702
         self.shirts = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png',  r'asset\Shirts\longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
         self.pants = [r'asset\empty.png', r'asset\Pants\Jeans/'+str(self.color)+'.png', r'asset\Pants\jeanShorts/'+str(self.color)+'.png', r'asset\Pants\BasketballShorts/'+str(self.color)+'.png', r'asset\Pants\cargoPants/'+str(self.color)+'.png', r'asset\Pants\loosePants/'+str(self.color)+'.png', r'asset\Pants\shortSkirt/'+str(self.color)+'.png', r'asset\Pants\LongSkirt/'+str(self.color)+'.png']
         self.sweater = [r'asset\empty.png', r'asset\Sweater\Blue/'+str(self.color)+'.png', r'asset\Sweater\Cardigan/'+str(self.color)+'.png', r'asset\Sweater\Jacket/'+str(self.color)+'.png', r'asset\Sweater\Sweater/'+str(self.color)+'.png', r'asset\Sweater\Purple/'+str(self.color)+'.png', r'asset\Sweater\SweaterVest/'+str(self.color)+'.png', r'asset\Sweater\crewneck/'+str(self.color)+'.png']
@@ -215,37 +226,40 @@ class Universal:
             self.gameStateManager.setAccessories2Draw(pygame.image.load(r'asset\empty.png'))
             self.gameStateManager.setShoes1Draw(pygame.image.load(r'asset\empty.png'))
             self.gameStateManager.setShoes2Draw(pygame.image.load(r'asset\empty.png'))
+            self.x = 702
+            self.color = 9
     def fullShuffle(self):
         if randomButtonB.draw():
+            self.x = 702
+            self.color = 9
             self.furindex = random.randrange(0,(len(self.furcolor)))
             self.gameStateManager.setCharacterDraw(pygame.image.load(r'asset/character/'+str(self.furcolor[self.furindex])+'.png'))
             self.randomColor1 = random.randint(0,9)
-            self.shirtPaths1 = [path.replace(str(self.color), str(self.randomColor1)) for path in self.shirts]
+            self.shirtPaths1 = list(map(lambda path: path.replace(str(self.color), str(self.randomColor1)), self.shirts))
             self.random1 = random.randint(0,len(self.shirts)-1)
             self.gameStateManager.setShirtDraw(pygame.image.load(self.shirtPaths1[self.random1]))
             self.randomColor2 = random.randint(0,9)
-            self.pantsPaths2 = [path.replace(str(self.color), str(self.randomColor2)) for path in self.pants]
+            self.pantsPaths2 = list(map(lambda path: path.replace(str(self.color), str(self.randomColor2)), self.pants))
             self.random2 = random.randint(0,len(self.pants)-1)
             self.gameStateManager.setPantsDraw(pygame.image.load(self.pantsPaths2[self.random2]))
-            print(self.gameStateManager.getPantsDraw())
             self.randomColor3 = random.randint(0,9)
-            self.sweaterPaths3 = [path.replace(str(self.color), str(self.randomColor3)) for path in self.sweater]
+            self.sweaterPaths3 = list(map(lambda path: path.replace(str(self.color), str(self.randomColor3)), self.sweater))
             self.random3 = random.randint(0,len(self.sweater)-1)
             self.gameStateManager.setSweaterDraw(pygame.image.load(self.sweaterPaths3[self.random3]))
             self.randomColor4 = random.randint(0,9)
-            self.accessoriesPaths4 = [path.replace(str(self.color), str(self.randomColor4)) for path in self.accessories]
+            self.accessoriesPaths4 = list(map(lambda path: path.replace(str(self.color), str(self.randomColor4)), self.accessories))
             self.random4 = random.randint(0,len(self.accessories)-1)
             self.gameStateManager.setAccessories1Draw(pygame.image.load(self.accessoriesPaths4[self.random4]))
             self.randomColor5 = random.randint(0,9)
-            self.accessoriesPaths5 = [path.replace(str(self.color), str(self.randomColor5)) for path in self.accessories]
+            self.accessoriesPaths5 = list(map(lambda path: path.replace(str(self.color), str(self.randomColor5)), self.accessories))
             self.random5 = random.randint(0,len(self.accessories)-1)
             self.gameStateManager.setAccessories2Draw(pygame.image.load(self.accessoriesPaths5[self.random5]))
             self.randomColor6 = random.randint(0,9)
-            self.shoesPaths6 = [path.replace(str(self.color), str(self.randomColor6)) for path in self.shoes1]
+            self.shoesPaths6 = list(map(lambda path: path.replace(str(self.color), str(self.randomColor6)), self.shoes1))
             self.random6 = random.randint(0,len(self.shoes1)-1)
             self.gameStateManager.setShoes1Draw(pygame.image.load(self.shoesPaths6[self.random6]))
             self.randomColor7 = random.randint(0,9)
-            self.shoesPaths7 = [path.replace(str(self.color), str(self.randomColor7)) for path in self.shoes2]
+            self.shoesPaths7 = list(map(lambda path: path.replace(str(self.color), str(self.randomColor7)), self.shoes2))
             self.random7 = random.randint(0,len(self.shoes2)-1)
             self.gameStateManager.setShoes2Draw(pygame.image.load(self.shoesPaths7[self.random7]))
     def draw(self):
@@ -258,7 +272,7 @@ class Universal:
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getAccessories2Draw(), 2)), (40, 140)) 
         self.display.blit((pygame.transform.scale_by(self.gameStateManager.getShoes2Draw(), 2)), (40, 140))
     def drawColorBG(self):
-        self.display.blit((colorBackground), (392,475))
+        self.display.blit((colorBackground), (412,425))
 
 class Color(Universal):
     def __init__(self, display, gameStateManager, color, furcolor, furindex, shirts, pants, sweater, accessories, shoes1, shoes2):
@@ -304,8 +318,6 @@ class Color(Universal):
 class Shirt(Color):
     def __init__(self, display, gameStateManager, color, shirts, shirtSelect, shirtIndex1, shirtIndex2, shirtIndex3, shirtIndex4, furcolor, furindex, pants, sweater, accessories, shoes1, shoes2):
         super().__init__(display, gameStateManager, furcolor, furindex, shirts, pants, sweater, accessories, shoes1, shoes2, color)        
-        self.x = 682
-        self.color = 9
         self.shirtIndex1 = shirtIndex1
         self.shirtIndex1 = 0
         self.shirtIndex2 = shirtIndex2
@@ -315,7 +327,7 @@ class Shirt(Color):
         self.shirtIndex4 = shirtIndex4
         self.shirtIndex4 = 3
         self.shirts = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shirtSelect = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
+        self.shirtSelect = [r'asset\button\no.png', r'asset/ShirtsB/shortdress/'+str(self.color)+'.png', r'asset/ShirtsB/longsleve/'+str(self.color)+'.png', r'asset\ShirtsB\plane/'+str(self.color)+'.png', r'asset\ShirtsB\tanktop/'+str(self.color)+'.png', r'asset\ShirtsB\tshirt/'+str(self.color)+'.png']
     def navBar(self):
         ShirtTabSelectedB.draw()
         if ColorTabUnselectedB.draw():
@@ -330,7 +342,7 @@ class Shirt(Color):
             self.gameStateManager.setState('Shoes')
     def arrowButtons(self):
         self.shirts = [r'asset\empty.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset\Shirts\longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
-        self.shirtSelect = [r'asset\button\no.png', r'asset/Shirts/shortdress/'+str(self.color)+'.png', r'asset/Shirts/longsleve/'+str(self.color)+'.png', r'asset\Shirts\plane/'+str(self.color)+'.png', r'asset\Shirts\tanktop/'+str(self.color)+'.png', r'asset\Shirts\tshirt/'+str(self.color)+'.png']
+        self.shirtSelect = [r'asset\button\no.png', r'asset/ShirtsB/shortdress/'+str(self.color)+'.png', r'asset/ShirtsB/longsleve/'+str(self.color)+'.png', r'asset\ShirtsB\plane/'+str(self.color)+'.png', r'asset\ShirtsB\tanktop/'+str(self.color)+'.png', r'asset\ShirtsB\tshirt/'+str(self.color)+'.png']
         if rightArrowB.draw():
             if self.shirtIndex1 < len(self.shirts) - 3:
                 self.shirtIndex1 += 2
@@ -410,7 +422,7 @@ class Pants(Shirt):
         self.pantsIndex4 = pantsIndex4
         self.pantsIndex4 = 3
         self.pants = [r'asset\empty.png', r'asset/Pants/Jeans/'+str(self.color)+'.png', r'asset/Pants/jeanShorts/'+str(self.color)+'.png', r'asset/Pants/BasketballShorts/'+str(self.color)+'.png', r'asset/Pants/cargoPants/'+str(self.color)+'.png', r'asset/Pants/loosePants/'+str(self.color)+'.png', r'asset/Pants/shortSkirt/'+str(self.color)+'.png', r'asset/Pants/LongSkirt/'+str(self.color)+'.png']
-        self.pantsSelect = [r'asset\button\no.png', r'asset/Pants/Jeans/'+str(self.color)+'.png', r'asset/Pants/jeanShorts/'+str(self.color)+'.png', r'asset/Pants/BasketballShorts/'+str(self.color)+'.png', r'asset/Pants/cargoPants/'+str(self.color)+'.png', r'asset/Pants/loosePants/'+str(self.color)+'.png', r'asset/Pants/shortSkirt/'+str(self.color)+'.png', r'asset/Pants/LongSkirt/'+str(self.color)+'.png']
+        self.pantsSelect = [r'asset\button\no.png', r'asset/PantsB/Jeans/'+str(self.color)+'.png', r'asset/PantsB/jeanShorts/'+str(self.color)+'.png', r'asset/PantsB/BasketballShorts/'+str(self.color)+'.png', r'asset/PantsB/cargoPants/'+str(self.color)+'.png', r'asset/PantsB/loosePants/'+str(self.color)+'.png', r'asset/PantsB/shortSkirt/'+str(self.color)+'.png', r'asset/PantsB/LongSkirt/'+str(self.color)+'.png']
     def navBar(self):
         PantsTabSelectedB.draw()
         if ColorTabUnselectedB.draw():
@@ -425,7 +437,7 @@ class Pants(Shirt):
             self.gameStateManager.setState('Shoes')
     def arrowButtons(self):
         self.pants = [r'asset\empty.png', r'asset/Pants/Jeans/'+str(self.color)+'.png', r'asset/Pants/jeanShorts/'+str(self.color)+'.png', r'asset/Pants/BasketballShorts/'+str(self.color)+'.png', r'asset/Pants/cargoPants/'+str(self.color)+'.png', r'asset/Pants/loosePants/'+str(self.color)+'.png', r'asset/Pants/shortSkirt/'+str(self.color)+'.png', r'asset/Pants/LongSkirt/'+str(self.color)+'.png']
-        self.pantsSelect = [r'asset\button\no.png', r'asset/Pants/Jeans/'+str(self.color)+'.png', r'asset/Pants/jeanShorts/'+str(self.color)+'.png', r'asset/Pants/BasketballShorts/'+str(self.color)+'.png', r'asset/Pants/cargoPants/'+str(self.color)+'.png', r'asset/Pants/loosePants/'+str(self.color)+'.png', r'asset/Pants/shortSkirt/'+str(self.color)+'.png', r'asset/Pants/LongSkirt/'+str(self.color)+'.png']
+        self.pantsSelect = [r'asset\button\no.png', r'asset/PantsB/Jeans/'+str(self.color)+'.png', r'asset/PantsB/jeanShorts/'+str(self.color)+'.png', r'asset/PantsB/BasketballShorts/'+str(self.color)+'.png', r'asset/PantsB/cargoPants/'+str(self.color)+'.png', r'asset/PantsB/loosePants/'+str(self.color)+'.png', r'asset/PantsB/shortSkirt/'+str(self.color)+'.png', r'asset/PantsB/LongSkirt/'+str(self.color)+'.png']
         if rightArrowB.draw():
             if self.pantsIndex1 < len(self.pants) - 3:
                 self.pantsIndex1 += 2
@@ -496,7 +508,7 @@ class Sweater(Pants):
     def __init__(self, display, gameStateManager, color, shirts, shirtSelect, shirtIndex1, shirtIndex2, shirtIndex3, shirtIndex4, furcolor, furindex, pants, pantsSelect, pantsIndex1, pantsIndex2, pantsIndex3, pantsIndex4, sweater, sweaterSelect, sweaterIndex1, sweaterIndex2, sweaterIndex3, sweaterIndex4, accessories, shoes1, shoes2):
         super().__init__(display, gameStateManager, color, shirts, shirtSelect, shirtIndex1, shirtIndex2, shirtIndex3, shirtIndex4, furcolor, furindex, pants, pantsSelect, pantsIndex1, pantsIndex2, pantsIndex3, pantsIndex4, sweater, accessories, shoes1, shoes2)
         self.sweater = [r'asset\empty.png', r'asset\Sweater\Blue/'+str(self.color)+'.png', r'asset\Sweater\Cardigan/'+str(self.color)+'.png', r'asset\Sweater\Jacket/'+str(self.color)+'.png', r'asset\Sweater\Sweater/'+str(self.color)+'.png', r'asset\Sweater\Purple/'+str(self.color)+'.png', r'asset\Sweater\SweaterVest/'+str(self.color)+'.png', r'asset\Sweater\crewneck/'+str(self.color)+'.png']
-        self.sweaterSelect = [r'asset\button\no.png', r'asset\Sweater\Blue/'+str(self.color)+'.png', r'asset\Sweater\Cardigan/'+str(self.color)+'.png', r'asset\Sweater\Jacket/'+str(self.color)+'.png', r'asset\Sweater\Sweater/'+str(self.color)+'.png', r'asset\Sweater\Purple/'+str(self.color)+'.png', r'asset\Sweater\SweaterVest/'+str(self.color)+'.png', r'asset\Sweater\crewneck/'+str(self.color)+'.png']
+        self.sweaterSelect = [r'asset\button\no.png', r'asset\SweaterB\Blue/'+str(self.color)+'.png', r'asset\SweaterB\Cardigan/'+str(self.color)+'.png', r'asset\SweaterB\Jacket/'+str(self.color)+'.png', r'asset\SweaterB\Sweater/'+str(self.color)+'.png', r'asset\SweaterB\Purple/'+str(self.color)+'.png', r'asset\SweaterB\SweaterVest/'+str(self.color)+'.png', r'asset\SweaterB\crewneck/'+str(self.color)+'.png']
         self.sweaterIndex1 = sweaterIndex1
         self.sweaterIndex1 = 0
         self.sweaterIndex2 = sweaterIndex2
@@ -519,7 +531,7 @@ class Sweater(Pants):
             self.gameStateManager.setState('Shoes')
     def arrowButtons(self):
         self.sweater = [r'asset\empty.png', r'asset\Sweater\Blue/'+str(self.color)+'.png', r'asset\Sweater\Cardigan/'+str(self.color)+'.png', r'asset\Sweater\Jacket/'+str(self.color)+'.png', r'asset\Sweater\Sweater/'+str(self.color)+'.png', r'asset\Sweater\Purple/'+str(self.color)+'.png', r'asset\Sweater\SweaterVest/'+str(self.color)+'.png', r'asset\Sweater\crewneck/'+str(self.color)+'.png']
-        self.sweaterSelect = [r'asset\button\no.png', r'asset\Sweater\Blue/'+str(self.color)+'.png', r'asset\Sweater\Cardigan/'+str(self.color)+'.png', r'asset\Sweater\Jacket/'+str(self.color)+'.png', r'asset\Sweater\Sweater/'+str(self.color)+'.png', r'asset\Sweater\Purple/'+str(self.color)+'.png', r'asset\Sweater\SweaterVest/'+str(self.color)+'.png', r'asset\Sweater\crewneck/'+str(self.color)+'.png']
+        self.sweaterSelect = [r'asset\button\no.png', r'asset\SweaterB\Blue/'+str(self.color)+'.png', r'asset\SweaterB\Cardigan/'+str(self.color)+'.png', r'asset\SweaterB\Jacket/'+str(self.color)+'.png', r'asset\SweaterB\Sweater/'+str(self.color)+'.png', r'asset\SweaterB\Purple/'+str(self.color)+'.png', r'asset\SweaterB\SweaterVest/'+str(self.color)+'.png', r'asset\SweaterB\crewneck/'+str(self.color)+'.png']
         if rightArrowB.draw():
             if self.sweaterIndex1 < len(self.sweater) - 3:
                 self.sweaterIndex1 += 2
@@ -602,7 +614,7 @@ class Accessories(Sweater):
         self.accBIndex3 = accBIndex3
         self.accBIndex3 = 2
         self.accessories = [r'asset\empty.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
-        self.accessoriesSelect = [r'asset\button\no.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
+        self.accessoriesSelect = [r'asset\button\no.png', r'asset\accessoriesB\tie/'+str(self.color)+'.png', r'asset\accessoriesB\scarf/'+str(self.color)+'.png', r'asset\accessoriesB\hat/'+str(self.color)+'.png', r'asset\accessoriesB\ingles/'+str(self.color)+'.png', r'asset\accessoriesB\bigHat/'+str(self.color)+'.png', r'asset\accessoriesB\watch/'+str(self.color)+'.png', r'asset\accessoriesB\bow/'+str(self.color)+'.png', r'asset\accessoriesB\necklace/'+str(self.color)+'.png', r'asset\accessoriesB\purse/'+str(self.color)+'.png']
     def navBar(self):
         AccessoriesTabSelectedB.draw()
         if ColorTabUnselectedB.draw():
@@ -617,7 +629,7 @@ class Accessories(Sweater):
             self.gameStateManager.setState('Shoes')
     def arrowButtons(self):
         self.accessories = [r'asset\empty.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
-        self.accessoriesSelect = [r'asset\button\no.png', r'asset\accessories\tie/'+str(self.color)+'.png', r'asset\accessories\scarf/'+str(self.color)+'.png', r'asset\accessories\hat/'+str(self.color)+'.png', r'asset\accessories\ingles/'+str(self.color)+'.png', r'asset\accessories\bigHat/'+str(self.color)+'.png', r'asset\accessories\watch/'+str(self.color)+'.png', r'asset\accessories\bow/'+str(self.color)+'.png', r'asset\accessories\necklace/'+str(self.color)+'.png', r'asset\accessories\purse/'+str(self.color)+'.png']
+        self.accessoriesSelect = [r'asset\button\no.png', r'asset\accessoriesB\tie/'+str(self.color)+'.png', r'asset\accessoriesB\scarf/'+str(self.color)+'.png', r'asset\accessoriesB\hat/'+str(self.color)+'.png', r'asset\accessoriesB\ingles/'+str(self.color)+'.png', r'asset\accessoriesB\bigHat/'+str(self.color)+'.png', r'asset\accessoriesB\watch/'+str(self.color)+'.png', r'asset\accessoriesB\bow/'+str(self.color)+'.png', r'asset\accessoriesB\necklace/'+str(self.color)+'.png', r'asset\accessoriesB\purse/'+str(self.color)+'.png']
         if rightTopArrowB.draw():
             if self.accTIndex1 < len(self.accessories) - 1:
                 self.accTIndex1 += 1
@@ -901,6 +913,7 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
+        self.currentFrame = 0
         pygame.display.set_caption("Cat Dress Up")
 
         self.gameStateManager = GameStateManager('start')
@@ -913,7 +926,7 @@ class Game:
         self.shirtIndex2 = 2
         self.shirtIndex3 = 1
         self.shirtIndex4 = 3
-        self.x = 632
+        self.x = 702
         self.pants = []
         self.pantsSelect = []
         self.pantsIndex1 = 0
@@ -958,13 +971,22 @@ class Game:
         
     def run(self):
         while True:
-
             screen.fill('#ffa7ad')
+
+            def animation(endFrame):
+                if self.currentFrame <= endFrame:
+                    frame = pygame.image.load(r'asset\animation/' + str(self.currentFrame) + '.png')
+                    self.screen.blit(frame, (800, 520))
+                    self.currentFrame += 1
+                else:
+                    self.currentFrame = 0 
+
+            self.screen.blit(pygame.image.load(r'asset\littleKitty.png'), (800, 520))
+            animation(17)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
 
             self.states[self.gameStateManager.getState()].run()
 
