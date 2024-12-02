@@ -1,8 +1,8 @@
 try:
     import pygame #requires pip install *
 except:
-    print('please pip install pygame with the terminal command: python3 -m pip install -U pygame --user')
-    print('if issues occur, please visit https://www.pygame.org/wiki/GettingStarted')
+    print('pygame requires pip install. copy paste in terminal: python3 -m pip install -U pygame --user')
+    print('if problems occur visit: https://www.pygame.org/wiki/GettingStarted')
 
 '''
 copy paste in terminal to install: python3 -m pip install -U pygame --user
@@ -165,7 +165,6 @@ class Start:
             self.gameStateManager.setState('Color')
         Start.animation(self, 17)
         
-
 class drawColorSelect:
     def __init__(self, display, color, x):
         self.display = display
@@ -226,8 +225,6 @@ class Universal:
             self.gameStateManager.setAccessories2Draw(pygame.image.load(r'asset\empty.png'))
             self.gameStateManager.setShoes1Draw(pygame.image.load(r'asset\empty.png'))
             self.gameStateManager.setShoes2Draw(pygame.image.load(r'asset\empty.png'))
-            self.x = 702
-            self.color = 9
     def fullShuffle(self):
         if randomButtonB.draw():
             self.x = 702
