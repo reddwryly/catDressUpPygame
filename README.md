@@ -1,8 +1,11 @@
-# Dress Up Cat
+# Dress Up Cat 
 
 ## Description
 
-This independent project was inspired by my childhood love of cats and dress-up flash games. All game assets are original pixel art and were designed and drawn by me for this project. 
+<p>
+  <img src="asset/character/calico.png" align="right" width="200">
+  This independent project was inspired by my childhood love of cats and dress-up flash games. All game assets are original pixel art and were designed and drawn by me for this project.
+</p>
 
 ## Technologies
 
